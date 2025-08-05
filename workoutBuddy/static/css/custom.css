@@ -1,0 +1,242 @@
+:root {
+  /* --- Base Neon Green Color and Glow (from first block) --- */
+  --neon-green: #39ff14;
+  --neon-glow: 0 0 3px var(--neon-green), 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
+
+  /* --- Dark Theme Base Colors (from first block) --- */
+  --dark-bg: #0d0d0d;
+  --dark-bg-transparent: rgba(17, 17, 17, 0.8);
+  --dark-card: #1a1a1a;
+  --dark-card-transparent: rgba(26, 26, 26, 0.7);
+  --light-text: #e0e0e0;
+  --mid-text: #888888;
+  --border-color: rgba(57, 255, 20, 0.3);
+
+
+
+  /* --- Neon Green Color Scale (from second block, more comprehensive) --- */
+  --neon-green-50: #f2ffe8;
+  --neon-green-100: #e6ffd1;
+  --neon-green-200: #c4ff9c;
+  --neon-green-300: #a0ff66;
+  --neon-green-400: #7cff30;
+  --neon-green-500: #2cff05; /* base */
+  --neon-green-600: #26e005;
+  --neon-green-700: #1fb904;
+  --neon-green-800: #189403;
+  --neon-green-900: #116f02;
+  --neon-green-glow-scale: 0 0 5px var(--neon-green-500), 0 0 15px var(--neon-green-500), 0 0 25px var(--neon-green-500);
+}
+
+/* --- Background Color Utilities --- */
+.bg-neon-50 {
+  background-color: var(--neon-green-50);
+}
+.bg-neon-100 {
+  background-color: var(--neon-green-100);
+}
+.bg-neon-200 {
+  background-color: var(--neon-green-200);
+}
+.bg-neon-300 {
+  background-color: var(--neon-green-300);
+}
+.bg-neon-400 {
+  background-color: var(--neon-green-400);
+}
+.bg-neon-500 {
+  background-color: var(--neon-green-500);
+}
+.bg-neon-600 {
+  background-color: var(--neon-green-600);
+}
+.bg-neon-700 {
+  background-color: var(--neon-green-700);
+}
+.bg-neon-800 {
+  background-color: var(--neon-green-800);
+}
+.bg-neon-900 {
+  background-color: var(--neon-green-900);
+}
+
+/* --- Text Color Utilities --- */
+.text-neon-50 {
+  color: var(--neon-green-50);
+}
+.text-neon-100 {
+  color: var(--neon-green-100);
+}
+.text-neon-200 {
+  color: var(--neon-green-200);
+}
+.text-neon-300 {
+  color: var(--neon-green-300);
+}
+.text-neon-400 {
+  color: var(--neon-green-400);
+}
+.text-neon-500 {
+  color: var(--neon-green-500);
+}
+.text-neon-600 {
+  color: var(--neon-green-600);
+}
+.text-neon-700 {
+  color: var(--neon-green-700);
+}
+.text-neon-800 {
+  color: var(--neon-green-800);
+}
+.text-neon-900 {
+  color: var(--neon-green-900);
+}
+
+/* --- Border Color Utilities --- */
+.border-neon-50 {
+  border-color: var(--neon-green-50);
+}
+.border-neon-100 {
+  border-color: var(--neon-green-100);
+}
+.border-neon-200 {
+  border-color: var(--neon-green-200);
+}
+.border-neon-300 {
+  border-color: var(--neon-green-300);
+}
+.border-neon-400 {
+  border-color: var(--neon-green-400);
+}
+.border-neon-500 {
+  border-color: var(--neon-green-500);
+}
+.border-neon-600 {
+  border-color: var(--neon-green-600);
+}
+.border-neon-700 {
+  border-color: var(--neon-green-700);
+}
+.border-neon-800 {
+  border-color: var(--neon-green-800);
+}
+.border-neon-900 {
+  border-color: var(--neon-green-900);
+}
+
+/* --- Optional Hover Variants (Example for 500 only, add more if needed) --- */
+.hover\:bg-neon-500:hover {
+  background-color: var(--neon-green-500);
+}
+.hover\:bg-neon-100:hover { background-color: var(--neon-green-100); }
+.hover\:bg-neon-200:hover { background-color: var(--neon-green-200); }
+.hover\:bg-neon-300:hover { background-color: var(--neon-green-300); }
+.hover\:bg-neon-400:hover { background-color: var(--neon-green-400); }
+.hover\:bg-neon-500:hover { background-color: var(--neon-green-500); }
+.hover\:bg-neon-600:hover { background-color: var(--neon-green-600); }
+.hover\:bg-neon-700:hover { background-color: var(--neon-green-700); }
+.hover\:bg-neon-800:hover { background-color: var(--neon-green-800); }
+.hover\:bg-neon-900:hover { background-color: var(--neon-green-900); }
+
+/* Optional: Add for all shades */
+.hover\:text-neon-100:hover { color: var(--neon-green-100); }
+.hover\:text-neon-200:hover { color: var(--neon-green-200); }
+.hover\:text-neon-300:hover { color: var(--neon-green-300); }
+.hover\:text-neon-400:hover { color: var(--neon-green-400); }
+.hover\:text-neon-500:hover { color: var(--neon-green-500); }
+.hover\:text-neon-600:hover { color: var(--neon-green-600); }
+.hover\:text-neon-700:hover { color: var(--neon-green-700); }
+.hover\:text-neon-800:hover { color: var(--neon-green-800); }
+.hover\:text-neon-900:hover { color: var(--neon-green-900); }
+
+.hover\:border-neon-500:hover {
+  border-color: var(--neon-green-500);
+}
+
+/* --- Neon Glow Effects and Animation --- */
+.neon-glow {
+  box-shadow: var(--neon-green-glow-scale); /* Using the more comprehensive glow */
+}
+.animate-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px var(--neon-green-500);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--neon-green-500);
+  }
+}
+
+/* --- Input Number Styling (removes spin buttons) --- */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* --- Custom Button Style (From Uiverse.io by gagan-gv) --- */
+.button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  position: relative;
+  color: white; /* Neon text color */
+  z-index: 1;
+}
+
+.button::after,
+.button::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -99999;
+  transition: all 0.4s;
+}
+
+.button::before {
+  transform: translate(0%, 0%);
+  width: 100%;
+  height: 100%;
+  background: var(--neon-green-800); /* Button background */
+  border-radius: 10px;
+}
+
+.button::after {
+  transform: translate(10px, 10px);
+  width: 35px;
+  height: 35px;
+  background: rgba(44, 255, 5, 0.2); /* Using rgba for transparency */
+  backdrop-filter: blur(5px);
+  border-radius: 50px;
+}
+
+.button:hover::before {
+  transform: translate(5%, 20%);
+  width: 110%;
+  height: 110%;
+  background: var(--neon-green-700);
+}
+
+.button:hover::after {
+  border-radius: 10px;
+  transform: translate(0, 0);
+  width: 100%;
+  height: 100%;
+  /* background: var(--neon-green-00); This was commented out and seems like a typo, so I've left it out. */
+}
+
+.button:active::after {
+  transition: 0s;
+  transform: translate(0, 5%);
+}

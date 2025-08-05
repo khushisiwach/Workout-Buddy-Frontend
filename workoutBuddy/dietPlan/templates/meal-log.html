@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Diet Meal Log{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'dietPlan/css/meal-log.css' %}">
+<link rel="stylesheet" href="{% static 'dietPlan/css/diet.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main-content-wrapper">
+    <div class="meal-log-container diet-form">
+       <h1>Your Daily Meal Log </h1> 
+
+        <form id="mealLogForm" method="post" action="{% url 'dietPlan:meal_log' %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input 
+                    type="date" 
+                    id="date" 
+                    name="date" 
+                    required 
+                    style="background-color: #1f2937; color: white; border: 1px solid var(--neon-green-600); padding: 10px; border-radius: 6px;"
+                >
+            </div>
+
+            {% for meal_type in meal_types %}
+            <div id="{{ meal_type }}-section" class="meal-section">
+                <h2 class="form-heading capitalize">{{ meal_type }}</h2>
+                <div id="{{ meal_type }}-items">
+                    <div class="meal-item-grid">
+                        <input type="text" name="{{ meal_type }}[0][item_name]" placeholder="Item name" required>
+                        <input type="number" class="item-quantity" name="{{ meal_type }}[0][quantity]" placeholder="Quantity (e.g., 2)">
+                        <input type="number" name="{{ meal_type }}[0][weight_in_grams]" placeholder="Weight (grams)">
+                        <button type="button" class="remove-item-button" onclick="removeMealItem(this)">X</button>
+                    </div>
+                </div>
+                <button type="button" class="button mt-2" onclick="addMealItem('{{ meal_type }}')">+ Add {{ meal_type|capfirst }} Item</button>
+            </div>
+            {% endfor %}
+
+            <div class="button-group">
+                <button type="submit" class="button">submit</button>
+                <a href="{% url 'diet_progress' %}" class="button">View Progress</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="{% static 'dietPlan/js/meal-log.js' %}"></script>
+{% endblock %}

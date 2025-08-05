@@ -1,0 +1,318 @@
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000; /* Deep black background */
+            color: #e0e0e0; /* Light gray for general text */
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Custom Neon Glow Utility */
+        .shadow-neon {
+            box-shadow: 0 0 5px #2CFF05, 0 0 10px #2CFF05, 0 0 15px #2CFF05, 0 0 20px #2CFF05;
+        }
+        .shadow-neon-active {
+            box-shadow: 0 0 8px #2CFF05, 0 0 15px #2CFF05, 0 0 25px #2CFF05, 0 0 35px #2CFF05;
+        }
+
+        /* Layered Neon Backgrounds */
+        .background-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .layer-1 {
+            background: radial-gradient(circle at top left, rgba(44, 255, 5, 0.15), transparent 70%); /* Neon green */
+        }
+        .layer-2 {
+            background: radial-gradient(circle at bottom right, rgba(44, 255, 5, 0.15), transparent 70%); /* Neon green */
+            mix-blend-mode: screen; /* Lighter blend for neon effect */
+            opacity: 0.3;
+        }
+        .layer-3 {
+            background: radial-gradient(circle at center, rgba(44, 255, 5, 0.1), transparent 70%); /* Neon green */
+            mix-blend-mode: overlay;
+            opacity: 0.2;
+        }
+
+        /* Floating Stickers/Icons Animation */
+        .flowing-sticker {
+            position: absolute;
+            font-size: 3rem; /* Larger stickers */
+            opacity: 0;
+            animation: flowAndFade 20s infinite ease-in-out;
+            pointer-events: none;
+            filter: drop-shadow(0 0 10px rgba(44, 255, 5, 0.8)); /* Neon green glow */
+        }
+
+        .flowing-sticker:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .flowing-sticker:nth-child(2) { top: 30%; left: 20%; animation-delay: 3s; font-size: 2.5rem; }
+        .flowing-sticker:nth-child(3) { top: 50%; left: 10%; animation-delay: 6s; }
+        .flowing-sticker:nth-child(4) { top: 70%; left: 30%; animation-delay: 9s; font-size: 2.8rem; }
+        .flowing-sticker:nth-child(5) { top: 20%; left: 80%; animation-delay: 12s; }
+        .flowing-sticker:nth-child(6) { top: 40%; left: 90%; animation-delay: 15s; font-size: 2.2rem; }
+        .flowing-sticker:nth-child(7) { top: 60%; left: 75%; animation-delay: 18s; }
+        .flowing-sticker:nth-child(8) { top: 80%; left: 50%; animation-delay: 21s; font-size: 3.1rem; }
+
+        @keyframes flowAndFade {
+            0% { transform: translateY(-100px) translateX(0px) scale(0.8); opacity: 0; }
+            15% { opacity: 0.7; }
+            50% { transform: translateY(0px) translateX(50px) scale(1); opacity: 1; }
+            85% { opacity: 0.7; }
+            100% { transform: translateY(100px) translateX(-20px) scale(0.8); opacity: 0; }
+        }
+
+        /* Glassmorphism Card Effect */
+        .glass-card {
+            background: rgba(40, 40, 40, 0.3); /* Darker semi-transparent */
+            backdrop-filter: blur(12px); /* Stronger blur */
+            border: 1px solid rgba(80, 80, 80, 0.4); /* Darker border */
+            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.3); /* Stronger shadow */
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        /* Custom Scrollbar for Workout Plan */
+        .workout-plan-scroll {
+            max-height: 60vh;
+            overflow-y: auto;
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: #2CFF05 #333; /* Neon green thumb and dark track */
+        }
+        .workout-plan-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .workout-plan-scroll::-webkit-scrollbar-track {
+            background: #333;
+            border-radius: 10px;
+        }
+        .workout-plan-scroll::-webkit-scrollbar-thumb {
+            background-color: #2CFF05; /* Neon green */
+            border-radius: 10px;
+            border: 2px solid #333;
+        }
+
+        /* Day Card & Content */
+        .day-card {
+            @apply bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg mb-4 cursor-pointer transition-all duration-300 ease-in-out;
+            transform: scale(1);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .day-card.active {
+            @apply bg-gray-700 bg-opacity-90 shadow-xl border-l-4 border-[#2CFF05]; /* Neon green border */
+            transform: scale(1.01);
+            box-shadow: 0 0 15px rgba(44, 255, 5, 0.5); /* Neon green glow on active */
+        }
+        .day-content {
+            @apply overflow-hidden transition-all duration-500 ease-in-out;
+        }
+
+        /* Exercise Row Animations */
+        .exercise-row {
+            @apply bg-gray-700 bg-opacity-50 p-4 rounded-lg mb-2 flex items-center justify-between transition-all duration-300 ease-in-out;
+            transform: translateY(10px);
+            opacity: 0;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .exercise-row.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .exercise-row.completed {
+            @apply bg-green-900 bg-opacity-40; /* Keep a subtle green for completed */
+            text-decoration: line-through;
+            opacity: 0.7;
+            border-color: rgba(44, 255, 5, 0.3); /* Lighter neon green for border */
+        }
+
+        /* Tooltip for Exercise Details */
+        .tooltip {
+            @apply absolute z-20 bg-gray-900 text-gray-200 text-sm rounded-lg p-3 shadow-lg opacity-0 pointer-events-none transition-opacity duration-300;
+            top: 50%;
+            left: 105%;
+            transform: translateY(-50%);
+            min-width: 150px;
+            border: 1px solid rgba(44, 255, 5, 0.5); /* Neon green border */
+            box-shadow: 0 0 10px rgba(44, 255, 5, 0.5); /* Neon green glow */
+        }
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -8px;
+            transform: translateY(-50%) rotate(45deg);
+            width: 16px;
+            height: 16px;
+            background-color: #1a202c; /* Match tooltip background */
+            z-index: -1;
+        }
+        .exercise-row:hover .tooltip {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Button Animations */
+        .btn-action {
+            @apply bg-gradient-to-r from-gray-800 to-black text-white py-3 px-6 rounded-full hover:from-black hover:to-gray-800 transition duration-300 ease-in-out shadow-lg transform hover:scale-105 active:scale-95 relative overflow-hidden;
+            border: 2px solid transparent; /* Base for neon border */
+            animation: neon-pulse 1.5s infinite alternate; /* Subtle breathing glow */
+            background-image: linear-gradient(to right, #2CFF05, #000); /* Neon green to black */
+        }
+        .btn-action:hover {
+            animation: none; /* Stop pulse on hover for direct glow */
+            box-shadow: 0 0 15px #2CFF05, 0 0 25px #2CFF05, 0 0 35px #2CFF05; /* Stronger neon green glow */
+            background-image: linear-gradient(to right, #000, #2CFF05); /* Black to neon green */
+        }
+        @keyframes neon-pulse {
+            0% { box-shadow: 0 0 5px #2CFF05, 0 0 10px #2CFF05; }
+            100% { box-shadow: 0 0 10px #2CFF05, 0 0 20px #2CFF05; }
+        }
+        .btn-action.sparkle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 10%, transparent 80%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: sparkle-pulse 0.8s ease-out forwards;
+        }
+        @keyframes sparkle-pulse {
+            to { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+        }
+
+        /* Specific Button Overrides */
+        #generateAnotherPlanBtn {
+            background-image: linear-gradient(to right, #2CFF05, #000);
+        }
+        #generateAnotherPlanBtn:hover {
+            background-image: linear-gradient(to right, #000, #2CFF05);
+        }
+
+        #previewThisWeekBtn {
+            background-image: linear-gradient(to right, #2CFF05, #000);
+        }
+        #previewThisWeekBtn:hover {
+            background-image: linear-gradient(to right, #000, #2CFF05);
+        }
+
+        #savePlanBtn {
+            background-image: linear-gradient(to right, #2CFF05, #000);
+        }
+        #savePlanBtn:hover {
+            background-image: linear-gradient(to right, #000, #2CFF05);
+        }
+
+        #sharePlanBtn {
+            background-image: linear-gradient(to right, #2CFF05, #000);
+        }
+        #sharePlanBtn:hover {
+            background-image: linear-gradient(to right, #000, #2CFF05);
+        }
+
+        /* Progress Tracker */
+        .progress-bar-container {
+            @apply w-full bg-gray-700 rounded-full h-2.5 mb-4;
+        }
+        .progress-bar {
+            @apply h-2.5 rounded-full transition-all duration-500 ease-out;
+            background-color: #2CFF05; /* Neon green */
+            box-shadow: 0 0 8px rgba(44, 255, 5, 0.7); /* Neon green glow */
+        }
+        .progress-dot {
+            @apply w-6 h-6 rounded-full bg-gray-600 flex items-center justify-center text-xs font-bold text-gray-300 transition-all duration-300 ease-in-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .progress-dot.completed {
+            background-color: #2CFF05; /* Neon green */
+            @apply text-black transform scale-110; /* Black text on green */
+            box-shadow: 0 0 8px rgba(44, 255, 5, 0.7); /* Neon green glow */
+        }
+        .progress-dot.active {
+            background-color: #2CFF05; /* Neon green */
+            @apply text-black transform scale-125; /* Black text on green */
+            box-shadow: 0 0 8px rgba(44, 255, 5, 0.7); /* Neon green glow */
+        }
+
+        /* Motivational Quote */
+        .quote-display {
+            @apply text-center text-gray-400 italic mt-6 text-lg;
+            min-height: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .quote-text {
+            animation: fadeInOutFlip 6s infinite;
+            display: inline-block;
+        }
+        @keyframes fadeInOutFlip {
+            0% { opacity: 0; transform: translateY(10px) rotateX(-90deg); }
+            10% { opacity: 1; transform: translateY(0) rotateX(0deg); }
+            45% { opacity: 1; transform: translateY(0) rotateX(0deg); }
+            55% { opacity: 0; transform: translateY(-10px) rotateX(90deg); }
+            100% { opacity: 0; transform: translateY(10px) rotateX(-90deg); }
+        }
+
+        /* Mascot Container */
+        .mascot-container {
+            @apply flex justify-center items-center h-20 mb-6;
+        }
+        .mascot-emoji {
+            @apply text-5xl transition-all duration-300 ease-in-out;
+            animation: mascot-idle 4s infinite ease-in-out;
+            filter: drop-shadow(0 0 8px #2CFF05); /* Neon green glow for mascot */
+        }
+        @keyframes mascot-idle {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        .mascot-emoji.react {
+            animation: mascot-react 0.3s ease-out;
+        }
+        @keyframes mascot-react {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2) rotate(5deg); }
+            100% { transform: scale(1); }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            @apply fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 transition-opacity duration-300 ease-in-out;
+        }
+        .modal-content {
+            @apply bg-gray-900 p-8 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            border: 1px solid rgba(44, 255, 5, 0.5); /* Neon green border */
+            box-shadow: 0 0 20px rgba(44, 255, 5, 0.5); /* Neon green glow */
+        }
+        .modal-overlay.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .modal-content h3 {
+            @apply text-white;
+        }
+        .modal-content .bg-gray-800 { /* Summary cards in modal */
+            @apply bg-gray-800 text-gray-200 border border-gray-700;
+        }
+        .modal-content .bg-gray-800 h4 {
+            @apply text-[#2CFF05]; /* Neon green for summary card titles */
+        }
+        .modal-content .bg-gray-800 ul {
+            @apply text-gray-300;
+        }
+        .modal-content .close-btn {
+            @apply text-gray-400 hover:text-white;
+        } 

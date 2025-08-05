@@ -1,0 +1,73 @@
+/* --- Team Section Card Flip Animation --- */
+.card-container {
+  perspective: 1000px;
+}
+.card {
+  transition: transform 0.7s;
+  transform-style: preserve-3d;
+}
+.card-container:hover .card {
+  transform: rotateY(180deg);
+}
+.card-front,
+.card-back {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* --- Marquee Styling --- */
+.marquee-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.marquee {
+  display: flex;
+  animation: marquee-scroll 40s linear infinite;
+  gap: 2rem; /* Creates space between items */
+  width: max-content;
+}
+.marquee:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  } /* Scrolls exactly one half of the content */
+}
+
+   /* About Page */
+.animated-element {  
+  opacity: 0;
+  transition: all 1s ease-out;
+}
+
+/* Slide in from left */
+.slide-in-left {
+  transform: translateX(-80px);
+}
+
+/* Slide in from right */
+.slide-in-right {
+  transform: translateX(80px);
+}
+
+/* Fade in upward for heading */
+.fade-in-up {
+  transform: translateY(40px);
+}
+
+/* When element becomes visible */
+.animated-element.visible {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
+
+
+

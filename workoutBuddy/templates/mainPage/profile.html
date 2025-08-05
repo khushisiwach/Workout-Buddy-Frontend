@@ -1,0 +1,87 @@
+{% load static %}
+<div id="profile-dropdown-container" class="relative inline-block text-left z-50">
+
+  <!-- Trigger Button -->
+  <div>
+    <button type="button" id="profile-dropdown-button"
+      class="flex items-center justify-center w-12 h-12 rounded-full border-2 border-transparent transition-all duration-300 hover:border-neon-500 focus:outline-none focus:ring-2 focus:ring-neon-500 bg-gray-200 hover:bg-gray-300">
+        <img class="h-12 w-12 rounded-full object-cover" src="{% static 'images/profile.png' %}"
+        alt="User avatar"
+        onerror="this.onerror=null;this.src='https://placehold.co/48x48/E2E8F0/4A5568?text=User';">
+
+    </button>
+  </div>
+
+  <!-- Dropdown Menu -->
+  <div id="profile-dropdown-menu"
+    class="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-xl bg-gray-900 ring-1 ring-black ring-opacity-10 hidden transform transition-all duration-200"
+    role="menu" aria-orientation="vertical" aria-labelledby="profile-dropdown-button">
+
+    <div class="py-2" role="none">
+
+      <!-- Profile Link -->
+      <a href="/profile"
+        class="flex items-center gap-3 text-white px-4 py-2 text-sm hover:bg-gray-800 hover:text-neon-500 transition-all"
+        role="menuitem">
+        <i class="fas fa-user-circle text-neon-500 w-5"></i>
+        Your Profile
+      </a>
+
+      <div class="border-t border-gray-600 my-2"></div>
+
+      <!-- Logout -->
+      <form method="POST" action="{% url 'logout' %}" role="none">
+        {% csrf_token %}
+        <button type="submit"
+          class="flex items-center gap-3 text-red-500 px-4 py-2 text-sm hover:bg-gray-800 hover:text-red-600 w-full text-left transition-all"
+          role="menuitem">
+          <i class="fas fa-sign-out-alt text-red-500 w-5"></i>
+          Sign Out
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Dropdown Toggle Script -->
+<script>
+  const container = document.getElementById('profile-dropdown-container');
+  const button = document.getElementById('profile-dropdown-button');
+  const menu = document.getElementById('profile-dropdown-menu');
+  let isMenuOpenOnClick = false;
+
+  const showMenu = () => {
+    menu.classList.remove('hidden');
+    menu.classList.add('opacity-100', 'scale-100');
+    menu.classList.remove('opacity-0', 'scale-95');
+  };
+
+  const hideMenu = () => {
+    menu.classList.add('opacity-0', 'scale-95');
+    menu.classList.remove('opacity-100', 'scale-100');
+    setTimeout(() => {
+      menu.classList.add('hidden');
+    }, 100);
+  };
+
+  button.addEventListener('click', (e) => {
+    e.stopPropagation();
+    isMenuOpenOnClick = !isMenuOpenOnClick;
+    isMenuOpenOnClick ? showMenu() : hideMenu();
+  });
+
+  container.addEventListener('mouseenter', () => {
+    if (!isMenuOpenOnClick) showMenu();
+  });
+
+  container.addEventListener('mouseleave', () => {
+    if (!isMenuOpenOnClick) hideMenu();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!container.contains(e.target) && isMenuOpenOnClick) {
+      isMenuOpenOnClick = false;
+      hideMenu();
+    }
+  });
+</script>

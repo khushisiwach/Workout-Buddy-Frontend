@@ -1,0 +1,174 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative h-screen w-full overflow-hidden">
+  <!-- Background Image -->
+  <div class="absolute inset-0">
+  <img src="{% static 'images/about_workout.jpg' %}"
+      alt="Workout Background" class="object-cover w-full h-full" />
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+  </div>
+
+  <!-- Animated Content -->
+  <div class="absolute inset-0 flex flex-col items-center justify-center text-center z-10 space-y-4">
+    <h1
+      class="text-4xl md:text-6xl font-bold text-white drop-shadow-lg opacity-0 transform translate-y-8 transition-all duration-1000 delay-300 animate-on-scroll">
+      About Us
+    </h1>
+
+    <nav class="opacity-0 transform translate-y-8 transition-all duration-1000 delay-500 animate-on-scroll">
+      <ol class="flex space-x-2 md:space-x-4 text-white text-lg font-medium bg-white/5  px-6 py-3 rounded-md shadow-lg">
+        <li><a href="/" class="hover:text-neon-500 transition duration-200">Home</a></li>
+        <li>/</li>
+        <li><a href="/about" class="text-neon-500">About Us</a></li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+
+
+
+<!-- About Us Section -->
+<section class="py-16 md:py-24 text-white">
+  <div class="container mx-auto px-6 max-w-7xl">
+    <!-- Intro Text -->
+    <div class="text-center mb-16 animated-element fade-in-up">
+      <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-neon-700 bg-clip-text">About Us</h2>
+    </div>
+
+    <!-- Mission Image & Text -->
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+
+      <!-- Image on the Left -->
+      <div class="animated-element slide-in-left">
+        <img src="{% static 'images/workout.jpg' %}"
+          onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/10b981?text=Workout+Buddy';"
+          alt="Workout session" class="rounded-lg shadow-2xl w-full h-full object-cover">
+      </div>
+
+      <!-- Text on the Right -->
+      <div class="animated-element slide-in-right">
+        <h3 class="text-3xl md:text-4xl font-bold text-white">Your Personalized Path to Fitness Success</h3>
+        <p class="mt-4 text-md text-gray-300">
+          <strong>Workout Buddy</strong> isn’t just an app — it's your fitness partner. Whether you're starting your
+          journey,
+          getting back on track, or pushing your limits, we tailor your workouts to match your goals and lifestyle.
+        </p>
+        <p class="mt-4 text-gray-400">
+          From smart workout planning to progress tracking and community motivation, we’re with you every rep of the
+          way.
+          No more guessing — just consistent, guided, and rewarding training designed to make you stronger, healthier,
+          and more confident.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- Static image paths for JS -->
+<div id="team-image-paths" data-pari-img="{% static 'images/pari.jpeg' %}"
+  data-aarush-img="{% static 'images/aarush.jpeg' %}"
+  data-khushi-img="{% static 'images/khushi.jpg' %}"
+  data-yatharth-img="{% static 'images/yatharth.jpg' %}"
+  >
+</div>
+<!-- Meet The Team Section -->
+<section class="py-16 md:py-24">
+  <div class="container mx-auto px-6 text-center">
+    <h1 class="text-3xl md:text-6xl font-bold text-white animated-element fade-in-up">Meet The Team</h1>
+    <p class="mt-4 text-md text-gray-300 max-w-2xl mx-auto animated-element fade-in-up"
+      style="transition-delay: 100ms;">
+      The passionate people behind the platform
+    </p>
+  </div>
+  <!-- Marquee Container -->
+  <div class="marquee-container mt-12 py-8 overflow-hidden">
+    <div class="marquee flex gap-8 animate-scroll-x" id="team-marquee">
+      <!-- Populated via JS -->
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Why Choose Us Section -->
+<section class="py-16 md:py-24  text-white">
+  <div class="container mx-auto px-6">
+
+    <div class="text-center mb-16 animated-element fade-in-up">
+      <h2 class="text-4xl md:text-5xl font-extrabold text-white">Why Choose Us?</h2>
+      <p class="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">Here’s why thousands trust Workout Buddy to transform
+        their health journey.
+      </p>
+    </div>
+
+    <!-- Feature Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 animated-element fade-in-up">
+
+      <!-- AI-Powered Diet Plans -->
+      <div class="bg-gray-900 p-8 rounded-xl border border-gray-800 hover:-translate-y-1 transition-all duration-300">
+        <h3 class="text-2xl font-semibold text-neon-700 mb-3">AI-Powered Diet Plans</h3>
+        <p class="text-gray-300">
+          Smart nutrition guidance crafted by AI, adapting your meal plans based on your body data, goals, and dietary
+          preferences.
+        </p>
+      </div>
+
+      <!-- AI-Powered Workout Plans -->
+      <div class="bg-gray-900 p-8 rounded-xl border border-gray-800 hover:-translate-y-1 transition-all duration-300">
+        <h3 class="text-2xl font-semibold text-neon-700 mb-3">AI-Powered Workout Plans</h3>
+        <p class="text-gray-300">
+          Get workouts that evolve with you—AI designs routines aligned to your progress, fitness level, and goals.
+        </p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="bg-gray-900 p-8 rounded-xl border border-gray-800  hover:-translate-y-1 transition-all duration-300">
+        <h3 class="text-2xl font-semibold text-neon-700 mb-3">Real-Time Progress Tracking</h3>
+        <p class="text-gray-300">Track every rep, set, and milestone. Stay accountable with intelligent tracking tools.
+        </p>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="bg-gray-900 p-8 rounded-xl border border-gray-800  hover:-translate-y-1 transition-all duration-300">
+        <h3 class="text-2xl font-semibold text-neon-700 mb-3">Expert Guidance</h3>
+        <p class="text-gray-300">Backed by fitness experts. Our platform evolves with science to give you the best
+          results.</p>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="bg-gray-900 p-8 rounded-xl border border-gray-800  hover:-translate-y-1 transition-all duration-300">
+        <h3 class="text-2xl font-semibold text-neon-700 mb-3">Flexible & Convenient</h3>
+        <p class="text-gray-300">Workout anywhere, anytime. No gym? No problem. We fit your schedule, not the other way
+          around.</p>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="bg-gray-900 p-8 rounded-xl border border-gray-800  hover:-translate-y-1 transition-all duration-300">
+        <h3 class="text-2xl font-semibold text-neon-700 mb-3">All Levels Welcome</h3>
+        <p class="text-gray-300">From first-timers to athletes — everyone belongs. We grow with you, every step of the
+          way.</p>
+      </div>
+
+    </div>
+
+  </div>
+  </div>
+</section>
+
+
+{%endblock%}
+{% block extra_scripts %}
+<script src="{% static 'js/about.js' %}"></script>
+{% endblock %}

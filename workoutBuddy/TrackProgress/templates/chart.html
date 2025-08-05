@@ -1,0 +1,260 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Diet Progress</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #0e0e0e;
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .progress-container {
+      background: #1a1a1a;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #26e005;
+      padding: 30px;
+      width: 850px;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .header-row h2 {
+      font-size: 28px;
+      color: #26e005;
+      margin: 0;
+    }
+
+    .header-row .details {
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    .progress-cards {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .progress-card {
+      width: 48%;
+      background-color: #121212;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+      position: relative;
+    }
+
+    .progress-card h3 {
+      color: #ccc;
+      margin-top: 15px;
+      font-size: 16px;
+    }
+
+    .chart-card {
+      background-color: #121212;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    }
+
+    .chart-card h3 {
+      color: #ccc;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    canvas {
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-container">
+    <div class="header-row">
+      <h2>Diet Progress</h2>
+      <div class="details">
+        Period: {{ period }} | Weight: {{ weight }}
+      </div>
+    </div>
+
+    <div class="progress-cards">
+      <div class="progress-card">
+        <canvas id="consistencyChart" width="120" height="120"></canvas>
+        <h3>Consistency</h3>
+      </div>
+      <div class="progress-card">
+        <canvas id="adherenceChart" width="120" height="120"></canvas>
+        <h3>Adherence</h3>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>Total Calories Per Day</h3>
+      <canvas id="calorieLineChart"></canvas>
+    </div>
+  </div>
+
+<script>
+  // Plugin to show percentage inside doughnut chart
+  const centerTextPlugin = {
+    id: 'centerText',
+    beforeDraw: function(chart) {
+      const width = chart.width;
+      const height = chart.height;
+      const ctx = chart.ctx;
+      ctx.restore();
+      const percent = chart.config.data.datasets[0].data[0];
+      const text = `${percent}%`;
+      ctx.font = 'bold 28px Segoe UI';
+      ctx.fillStyle = '#26e005';
+      ctx.textBaseline = 'middle';
+      const textX = Math.round((width - ctx.measureText(text).width) / 2);
+      const textY = height / 2;
+      ctx.fillText(text, textX, textY);
+      ctx.save();
+    }
+  };
+
+  // Draw doughnut chart with label and percentage
+  const drawRadialChart = (canvasId, percentage, label) => {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: [label, 'Remaining'],
+        datasets: [{
+          data: [percentage, 100 - percentage],
+          backgroundColor: ['#26e005', '#333'],
+          hoverOffset: 5,
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: '70%',
+        responsive: true,
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.label}: ${context.parsed}%`;
+              }
+            }
+          },
+          legend: {
+            display: false
+          },
+          title: {
+            display: true,
+            text: `${label} Score`,
+            color: '#ffffff',
+            font: {
+              size: 14
+            },
+            padding: {
+              top: 10,
+              bottom: 5
+            }
+          }
+        }
+      },
+      plugins: [centerTextPlugin]
+    });
+  };
+
+  drawRadialChart('consistencyChart', {{ consistency }}, 'Consistency');
+  drawRadialChart('adherenceChart', {{ adherence }}, 'Adherence');
+
+  const dailyData = {{ daily_data|safe }};
+  const calorieDates = dailyData.map(entry => entry.date);
+  const calorieTotals = dailyData.map(entry => entry.total);
+
+  const lineCtx = document.getElementById('calorieLineChart').getContext('2d');
+  new Chart(lineCtx, {
+    type: 'line',
+    data: {
+      labels: calorieDates,
+      datasets: [{
+        label: 'Calories Consumed',
+        data: calorieTotals,
+        borderColor: '#26e005',
+        backgroundColor: 'rgba(0, 255, 136, 0.15)',
+        pointBackgroundColor: '#26e005',
+        fill: true,
+        tension: 0.4
+      }]
+    },
+    options: {
+      responsive: true,
+      interaction: {
+        mode: 'nearest',
+        axis: 'x',
+        intersect: false
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Dates',
+            color: '#22e005',
+            font: { size: 12 }
+          },
+          ticks: { color: '#aaa' },
+          grid: { color: '#222' }
+        },
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Calories Intake',
+            color: '#22e005',
+            font: { size: 12 }
+          },
+          ticks: { color: '#aaa' },
+          grid: { color: '#222' }
+        }
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return `Calories: ${context.parsed.y}`;
+            }
+          }
+        },
+        legend: {
+          labels: {
+            color: '#00ff88'
+          }
+        },
+        title: {
+          display: true,
+          text: 'Calories Consumed Each Day',
+          color: '#26e005',
+          font: {
+            size: 16
+          },
+          padding: {
+            bottom: 15
+          }
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

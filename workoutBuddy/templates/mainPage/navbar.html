@@ -1,0 +1,39 @@
+<!-- Navbar -->
+{% load static%}
+<header class="bg-gray-900 text-white shadow-md fixed w-full top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+
+      <!-- Logo -->
+      <div class="flex items-center space-x-2">
+        <a href="/" class="text-xl font-bold text-neon-600"><img src="{% static 'images/logo.png' %}" alt="Logo" class="h-16"></a>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-8">
+
+        <a href="{% url 'workout_logger' %}" class="hover:text-neon-600 hover:underline font-medium">Workout Log</a>
+        <a href="{% url 'dietPlan:meal_log' %}" class="hover:text-neon-600 hover:underline font-medium">Meal Log</a>
+
+        <a href="/#services" class="hover:text-neon-600 hover:underline font-medium">Services</a>
+        <a href="/about" class="hover:text-neon-600 hover:underline font-medium">About</a>
+      </nav>
+
+      <!-- Auth Buttons -->
+      <div class="md:flex items-center space-x-4">
+        {% if token %}
+        {% include 'mainPage/profile.html' %}
+        {% else %}
+          <a href="{% url 'login' %}"
+            class="bg-neon-600 hover:bg-neon-700 text-black py-2 px-4 rounded-lg font-semibold transition duration-300">
+            Login
+          </a>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<!-- Spacer to offset fixed navbar -->
+<div class="h-16"></div>

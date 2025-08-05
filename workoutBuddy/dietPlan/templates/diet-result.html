@@ -1,0 +1,89 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Diet-result{% endblock %}
+
+{% block extra_head %}
+<!-- Tailwind already loaded in base, just fonts & styles -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'dietPlan/css/diet-result.css' %}">
+<link rel="stylesheet" href="{% static 'dietPlan/css/custom.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class=" text-gray-100 min-h-screen flex flex-col items-center py-10 px-4 font-inter">
+  <div class="diet-form-body rounded-3xl shadow-2xl p-6 md:p-10 w-full max-w-5xl border border-gray-800">
+
+    <!-- Header -->
+    <header class="text-center mb-12 relative">
+      
+      <h1 class="text-4xl md:text-5xl font-patrick-hand text-neon-600 mb-2 drop-shadow-lg glow-text">
+        INTERMITTENT FASTING
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-400 font-light">Diet Plan</p>
+
+      <!-- SVG Decorations -->
+      <svg class="absolute top-0 right-0 w-24 h-24 text-neon-600 opacity-30 -mt-8 -mr-8" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 100C10 45.3333 45.3333 10 100 10C154.667 10 190 45.3333 190 100C190 154.667 154.667 190 100 190C45.3333 190 10 154.667 10 100Z" stroke="currentColor" stroke-width="5" stroke-dasharray="10 5"/>
+        <path d="M140 60L160 80L140 100" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M60 140L40 120L60 100" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <svg class="absolute bottom-0 left-0 w-16 h-16 text-neon-600 opacity-20 -mb-8 -ml-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 80L50 50L80 80" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20 20L50 50L80 20" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </header>
+
+    <!-- Plan Cards -->
+    {% if diet_plan %}
+    <main class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {% for day, info in diet_plan.items %}
+      <div class="day-card animated-card bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-700 transition-all duration-300 transform hover:scale-105">
+        <div class="text-center text-2xl font-bold font-patrick-hand text-neon-600 mb-4 pb-2 border-b border-gray-700">
+          {{ day|title }}
+        </div>
+        <div class="text-gray-300 text-base space-y-3">
+          <p><strong class="text-gray-100">Breakfast:</strong> {{ info.meals.breakfast }}</p>
+          <p><strong class="text-gray-100">Lunch:</strong> {{ info.meals.lunch }}</p>
+          <p><strong class="text-gray-100">Dinner:</strong> {{ info.meals.dinner }}</p>
+          <p><strong class="text-gray-100">Calories:</strong> {{ info.meals.calories }}</p>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Notes -->
+      <div class="day-card animated-card bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-700 transition-all duration-300 transform hover:scale-105">
+        <div class="text-center text-2xl font-bold font-patrick-hand text-neon-600 mb-4 pb-2 border-b border-gray-700">
+          Important Notes
+        </div>
+        <div class="text-gray-300 text-base space-y-3">
+          <p>• <span class="text-neon-600">Stay hydrated</span> (2–3L water daily)</p>
+          <p>• <span class="text-neon-600">Avoid late-night snacking</span></p>
+          <p>• <span class="text-neon-600">Light exercise</span> daily</p>
+          <p>• <span class="text-neon-600">Listen to your body</span> and adjust as needed</p>
+        </div>
+      </div>
+    </main>
+    {% else %}
+    <p class="text-center text-red-600 text-lg mt-6">No diet plan available. Please generate a new one.</p>
+    {% endif %}
+
+    <!-- Button -->
+    <div class="text-center mt-10">
+      <a href="{% url 'dietPlan:dietPreference' %}" class="inline-block bg-neon-600 hover:bg-green-800 text-white font-medium text-lg px-6 py-3 rounded-xl transition">
+        Generate New Plan
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Animate Cards -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.animated-card');
+    cards.forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.08}s`;
+    });
+  });
+</script>
+{% endblock %}

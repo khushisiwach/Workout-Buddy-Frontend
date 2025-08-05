@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Workout Buddy{% endblock %}</title>
+
+  <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Flowbite (for components like modals, dropdowns, etc.) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js" defer></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-...your-integrity-value..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-HGKlFtds8HXWzMzt3YJh2CFVZuXBf9vXzAZxW4TPe0PIQZwhgTKnMB+diIogD5QZyDd8UwnZHnYaD+EAF50uwQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Additional styles/scripts from child templates -->
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body class="bg-[var(--dark-bg)] text-white font-sans min-h-screen flex flex-col justify-between">
+
+  <!-- Navbar -->
+  {% include 'mainPage/navbar.html' %}
+
+  <!-- Main Content -->
+  <main>
+    {% block content %}{% endblock %}
+    {% include 'mainPage/chatbot.html' %}
+  </main>
+
+  <!-- Footer -->
+  {% include 'mainPage/footer.html' %}
+
+  <!-- Scripts or JS from child templates -->
+  {% block extra_scripts %}{% endblock %}
+</body>
+
+</html>

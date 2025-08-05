@@ -1,0 +1,42 @@
+body.progress-container {
+  background-color: #0a0a0a;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  padding: 30px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.progress-circles {
+  display: flex;
+  gap: 40px;
+  justify-content: start;
+  margin-bottom: 40px;
+}
+
+.circle-container {
+  text-align: center;
+}
+
+.circle-container canvas {
+  margin-bottom: 10px;
+}
+
+.line-chart {
+  background-color: #121212;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 15px #00ff88;
+}
+
+.line-chart h2 {
+  margin-bottom: 20px;
+  color: #00ff88;
+  text-align: center;
+}

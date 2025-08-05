@@ -1,0 +1,47 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+<link rel="stylesheet" href="{% static 'user/css/login-signup.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="login-form-body w-full min-h-screen flex items-center justify-center">
+  <div class="form-body max-w-md border p-6 rounded-md shadow-md">
+
+    <h2 class="form-title text-center">Verify Your Email</h2>
+
+    {% if error %}
+    <p class="text-red-500 mb-4 text-center">{{ error }}</p>
+    {% endif %}
+    {% if message %}
+    <p class="text-green-500 mb-4 text-center">{{ message }}</p>
+    {% endif %}
+
+    <!-- OTP Verification Form -->
+    <form method="post" action="{% url 'verify_otp' %}" class="form-content flex flex-col gap-6">
+      {% csrf_token %}
+
+      <div class="input-group">
+        <input type="email" name="email" value="{{ email }}" readonly
+          class="input-field bg-gray-100 cursor-not-allowed text-gray-700" placeholder="Email">
+      </div>
+
+      <div class="input-group">
+        <input type="text" name="otp" placeholder="Enter OTP" required class="input-field">
+      </div>
+
+      <button type="submit" class="submit-button">Verify OTP</button>
+    </form>
+
+    <!-- Resend OTP -->
+    <form method="post" action="{% url 'resend_otp' %}" class="mt-4 text-center">
+      {% csrf_token %}
+      <input type="hidden" name="email" value="{{ email }}">
+      <button type="submit" class="text-sm text-neon-600 hover:underline">Resend OTP</button>
+    </form>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* Flip card container */
+.card-container {
+  perspective: 1500px;
+  margin-top: 15px;
+}
+
+.card-inner {
+  transition: transform 0.8s ease;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Front and back */
+.card-front,
+.card-back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.card-front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* Form step animation (optional enhancement) */
+.form-step {
+  transition: opacity 0.3s ease;
+}
+
+.form-step.hidden {
+  opacity: 0;
+  display: none;
+}
+
+.form-step.active {
+  opacity: 1;
+  display: block;
+}
+
+.diet-form-create-bod{
+  background-color: var(--dark-bg);
+  color: var(--light-text);
+  /* Animated Gradient Background */
+  background: linear-gradient(-45deg, #000000, #081c04, #0d0d0d, #031400);
+  background-size: 400% 400%;
+  animation: an-aurora 15s ease infinite;
+}

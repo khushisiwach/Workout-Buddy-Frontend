@@ -1,0 +1,31 @@
+ .font-patrick-hand {
+        font-family: 'Patrick Hand', cursive;
+    }
+
+    @keyframes fadeInScale {
+        from { opacity: 0; transform: translateY(20px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .animated-card {
+        animation: fadeInScale 0.6s ease-out forwards;
+        opacity: 0;
+    }
+
+    .glow-text {
+        text-shadow: 0 0 8px rgba(52, 211, 153, 0.7);
+    }
+
+ .day-card:hover {
+    border-color: #26e005;
+    box-shadow: 0 0 6px #26e005, 0 0 6px #26e005;
+}
+
+.diet-form-body{
+  background-color: var(--dark-bg);
+  color: var(--light-text);
+  /* Animated Gradient Background */
+  background: linear-gradient(-45deg, #000000, #081c04, #0d0d0d, #031400);
+  background-size: 400% 400%;
+  animation: an-aurora 15s ease infinite;
+}

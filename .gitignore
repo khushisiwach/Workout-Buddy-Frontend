@@ -1,0 +1,65 @@
+a# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django-specific
+db.sqlite3
+*.sqlite3
+*.log
+media/
+staticfiles/
+local_settings.py
+
+# Migrations (optional, if you want to exclude generated migration files)
+**/migrations/*.py
+**/migrations/__pycache__/
+
+# Environment variables
+.env
+.env.*
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# pipenv & poetry
+Pipfile.lock
+poetry.lock
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# MyPy
+.mypy_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Test results
+junit.xml
+test-results/
+
+# Temporary files
+*.swp
+*.swo
+*.tmp

@@ -1,0 +1,86 @@
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Multi-step form animations */
+
+.hidden-until-loaded {
+  display: none;
+}
+
+.form-step {
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.form-step.hidden {
+    opacity: 0;
+    transform: translateX(20px);
+    position: absolute;
+    pointer-events: none;
+}
+.form-step.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Custom radio */
+.custom-radio input[type="radio"] {
+    display: none;
+}
+.custom-radio label {
+    transition: all 0.2s ease-in-out;
+    border: 2px solid transparent;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.custom-radio input[type="radio"]:checked + label {
+    border-color: #2CFF05;
+    background-color: rgba(44, 255, 5, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(44, 255, 5, 0.25);
+}
+
+/* Slider */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    background: #2CFF05;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-top: -3px;
+}
+input[type=range]::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    background: #2CFF05;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+/* Custom neon focus for input */
+.input-focus-neon:focus {
+    border-color: #2CFF05 !important;
+    box-shadow: 0 0 0 3px rgba(44, 255, 5, 0.3);
+    outline: none;
+}
+
+/* Remove spinner arrows in number inputs for Chrome, Safari, Edge */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove spinner arrows in Firefox */
+input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
+    -webkit-appearance: none;   /* Chrome, Safari, Edge (WebKit-based) */
+    appearance: none;           /* Standard */
+}

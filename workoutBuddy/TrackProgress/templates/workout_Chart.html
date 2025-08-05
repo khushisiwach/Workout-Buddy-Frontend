@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workout Progress Report</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      background: #0f0f0f;
+      color: #26e005;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .date-range {
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: #ccc;
+    }
+
+    .summary-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .box {
+      background: #1a1a1a;
+      border: 1px solid #00ff88;
+      padding: 1rem;
+      flex: 1 1 200px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #00ff88;
+    }
+
+    .chart-container {
+      background: #1a1a1a;
+      padding: 2rem;
+      border-radius: 10px;
+      margin-bottom: 3rem;
+    }
+
+    canvas {
+      max-width: 100%;
+    }
+
+    .tips {
+      margin-top: 2rem;
+    }
+
+    .tips h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #00ff88;
+      padding-bottom: 0.5rem;
+    }
+
+    .tip {
+      background: #121212;
+      border-left: 4px solid #00ff88;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+    }
+
+    .tip h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+
+    .tip ul {
+      list-style: disc;
+      padding-left: 1.5rem;
+    }
+
+    .tip li {
+      margin-bottom: 0.4rem;
+      color: #cccccc;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% else %}
+  <div class="container">
+    <h1>Workout Progress</h1>
+    <div class="date-range">{{ start_date }} → {{ end_date }}</div>
+
+    <div class="summary-grid">
+      <div class="box">Consistency: {{ consistency }}%</div>
+      <div class="box">Average RPE: {{ average_rpe }}</div>
+      <div class="box">Total Sets: {{ total_sets }}</div>
+      <div class="box">Total Reps: {{ total_reps }}</div>
+      <div class="box"> Total Calories Burned: {{ calories_burned}} </div>
+      <div class="box">Current Weight: {{ weight }} kg</div>
+    </div>
+
+    <div class="chart-container">
+      <h2 style="text-align:center;">Muscle Group Distribution</h2>
+      <canvas id="muscleChart"></canvas>
+    </div>
+
+    <div class="tips">
+      <h2>Trainer's Tips</h2>
+      {% for tip in tips %}
+        <div class="tip">
+          <h3>{{ tip.title }}</h3>
+          <ul>
+            {% for t in tip.tips %}
+              <li>{{ t }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+    {% endif %}
+
+  <script>
+  const muscleLabels = {{ muscle_labels|safe }};
+  const muscleValues = {{ muscle_values|safe }};
+
+  const ctx = document.getElementById('muscleChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: muscleLabels,
+      datasets: [{
+        label: 'Workout % Focused',
+        data: muscleValues,
+        backgroundColor: '#26e005',
+        borderColor: '#00ff88',
+        borderWidth: 1,
+      }]
+    },
+    options: {
+  scales: {
+    y: {
+      beginAtZero: true,
+      ticks: {
+        color: '#00ff88'
+      },
+      title: {
+        display: true,
+        text: 'Number of sets',
+        color: '#26e005',
+        font: {
+          size: 14
+        }
+      }
+    },
+    x: {
+      ticks: {
+        color: '#00ff88'
+      },
+      title: {
+        display: true,
+        text: 'Muscle Groups',
+        color: '#26e005',
+        font: {
+          size: 14
+        }
+      }
+    }
+  },
+  plugins: {
+    legend: {
+      labels: {
+        color: '#00ff88'
+      }
+    }
+  }
+}
+  });
+</script>

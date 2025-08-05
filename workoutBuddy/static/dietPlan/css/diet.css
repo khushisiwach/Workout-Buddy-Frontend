@@ -1,0 +1,148 @@
+
+.card-container {
+  perspective: 1500px;
+}
+
+.card-inner {
+  transition: transform 0.8s ease;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.card-front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* === Step Transitions === */
+.form-step {
+  transition: opacity 0.3s ease;
+}
+
+.form-step.hidden {
+  opacity: 0;
+  display: none;
+}
+
+.form-step.active {
+  opacity: 1;
+  display: block;
+}
+
+/* === Neon Input + Select Styling === */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+textarea,
+select {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--neon-green-500);
+  outline: none;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--neon-green-300);
+  box-shadow: 0 0 0 3px rgba(44, 255, 5, 0.4);
+}
+
+/* === Neon Checkbox === */
+input[type="checkbox"] {
+  accent-color: var(--neon-green-500);
+}
+
+/* === Neon Buttons === */
+.diet-button{
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  position: relative;
+  color: white;
+  z-index: 1;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.diet-button::after,
+.diet-button::before{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  transition: all 0.4s;
+}
+
+.diet-button::before {
+  width: 100%;
+  height: 100%;
+  background: var(--neon-green-800);
+  border-radius: 10px;
+}
+
+.diet-button::after{
+  width: 35px;
+  height: 35px;
+  background: #2cff0533;
+  backdrop-filter: blur(5px);
+  border-radius: 50%;
+  transform: translate(10px, 10px);
+}
+
+.diet-button:hover::before{
+  transform: translate(5%, 20%);
+  width: 110%;
+  height: 110%;
+  background: var(--neon-green-700);
+}
+
+.diet-button:hover::after {
+  border-radius: 10px;
+  transform: translate(0, 0);
+  width: 100%;
+  height: 100%;
+}
+
+.diet-button:active::after{
+  transition: 0s;
+  transform: translate(0, 5%);
+}
+
+/* === Form Heading === */
+.form-heading {
+  color: var(--neon-green-500);
+  font-weight: bold;
+}
+
+/* === Success Message Block === */
+.diet-plan-result {
+  background-color: var(--neon-green-100);
+  color: #1a1a1a;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px var(--neon-green-300);
+}

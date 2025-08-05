@@ -1,0 +1,61 @@
+<!-- Navbar -->
+{% load static %}
+ 
+<section id="services" class="pb-16 ">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class=" text-neon-600 text-3xl font-bold text-center  mb-10">Our Services</h2>
+    
+    <div class="grid md:grid-cols-3 gap-8">
+      
+      <!-- Customized Workout Plan -->
+      <div class="bg-gray-900 p-6 rounded-lg shadow hover:scale-105 transition-transform duration-300 text-center flex flex-col justify-between h-full">
+        <img src="{% static 'images/OH5IPT0.jpg' %}" alt="Workout" class="w-16 h-16 rounded-full mx-auto mb-4 object-cover shadow-md border-2 border-gray-300">
+        <h3 class="text-xl font-semibold mb-2">Customize Your Workout</h3>
+        <p>AI-driven routines tailored to your fitness level, time, and goals. Home or gym – you choose.</p>
+        <a href="{% url 'view_workout_plan'%}">
+          <button class="bg-neon-600 hover:bg-neon-700 text-black font-semibold mt-2 py-2 px-5 rounded transition-all duration-300 transform hover:scale-105" type="submit"> Workout Plan </button>
+        </a>
+      </div>
+
+      <!-- Customized Diet Plan -->
+      <div class="bg-gray-900 p-6 rounded-lg shadow hover:scale-105 transition-transform duration-300 text-center flex flex-col justify-between h-full">
+        <img src="https://cdn-icons-png.flaticon.com/512/2965/2965567.png" alt="Diet" class="w-16 h-16 rounded-full mx-auto mb-4 object-cover shadow-md border-2 border-gray-300">
+        <h3 class="text-xl font-semibold mb-2 text-[var(--main-color)]">Customize Your Diet</h3>
+        <p>Nutritionist-backed meal plans based on your preferences, allergies, and goals – delicious and effective.</p>
+        <a href="{% url 'dietPlan:diet_result'%}">
+          <button class="bg-neon-600 hover:bg-neon-700 text-black font-semibold mt-2 py-2 px-5 rounded transition-all duration-300 transform hover:scale-105" type="submit"> Diet View </button>
+        </a>
+      </div>
+
+     <!-- Progress Tracking -->
+<div class="bg-gray-900 p-6 rounded-lg shadow hover:scale-105 transition-transform duration-300 text-center flex flex-col justify-between h-full">
+  <img src="https://cdn-icons-png.flaticon.com/512/4151/4151740.png" alt="Tracking" class="w-16 h-16 rounded-full mx-auto mb-4 object-cover shadow-lg border-2 border-gray-300">
+  <h3 class="text-xl font-semibold mb-2">Track Your Progress</h3>
+  <p class="mb-4">Log workouts, monitor calories, measure BMI, and celebrate milestones in real-time.</p>
+
+  <!-- Dropdown Hover Button -->
+  <div class="relative mx-auto">
+   <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover"
+  class="bg-neon-600 hover:bg-neon-700 text-black font-semibold mt-2 py-2 px-5 rounded transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
+  type="button">
+  Trace Progress
+  <svg class="w-3 h-3 ml-2 mt-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+  </svg>
+</button>
+
+    <!-- Dropdown menu -->
+    <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 absolute left-1/2 transform -translate-x-1/2 mt-2 dark:bg-gray-700">
+      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
+        <li>
+          <a href="meal/progress/" class="block px-4 py-2 hover:bg-gray-900 dark:hover:bg-gray-900 dark:hover:text-white">Meal Progress</a>
+        </li>
+        <li>
+          <a href="workout/progress/" class="block px-4 py-2 hover:bg-gray-900 dark:hover:bg-gray-900 dark:hover:text-white">Workout Progress</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+  </div>
+</section>

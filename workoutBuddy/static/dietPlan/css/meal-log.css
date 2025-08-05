@@ -1,0 +1,357 @@
+/* meal-log.css */
+
+/* --- General Body and Layout --- */
+body {
+    font-family: 'Inter', sans-serif;
+    /* Using Inter as requested in head block */
+    background-color: #0d1117;
+    /* New very dark background */
+    color: #c9d1d9;
+    /* Lighter grey for general text for better contrast */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- Header Styling --- */
+.top-header {
+    background-color: #111827;
+    /* Slightly lighter than body for header */
+    padding: 15px 30px;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #e0e0e0;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(var(--neon-green-600), 0.3);
+    /* More pronounced green line */
+}
+
+.header-left .logo-text {
+    color: #e0e0e0;
+}
+
+.header-right {
+    color: #8b949e;
+    /* Muted color for "Work" text */
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+}
+
+.header-right .profile-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--neon-green-600);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    color: #0d1117;
+    /* Text color for the icon should contrast with neon green */
+    font-weight: bold;
+    margin-left: 10px;
+    box-shadow: 0 0 10px rgba(var(--neon-green-500-rgb), 0.6);
+    /* Sharper, brighter glow */
+}
+
+/* --- Main Content meal-log-container Styling --- */
+.main-content-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 20px;
+    box-sizing: border-box;
+
+}
+
+.meal-log-container {
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+    /* Animated Gradient Background */
+    background: linear-gradient(-45deg, #000000, #081c04, #0d0d0d, #031400);
+    background-size: 400% 400%;
+    animation: an-aurora 15s ease infinite;
+    border-radius: 12px;
+    padding: 40px 50px;
+    box-shadow: 0 10px 40px rgba(var(--neon-green-500-rgb), 0.2);
+    width: 80vw;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid transparent;
+    /* Start as transparent */
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth hover transition */
+}
+
+.meal-log-container:hover {
+    border: 1px solid var(--neon-green-800);
+    /* Neon green border on hover */
+    box-shadow: 0 0 10px var(--neon-green-400);
+    /* Glowing effect on hover */
+}
+
+
+.meal-log-container::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    /* Adjusted for a wider, softer glow */
+    left: -60%;
+    width: 90vw;
+    height: 220%;
+    background: radial-gradient(circle at center, rgba(var(--neon-green-500-rgb), 0.05) 0%, transparent 60%);
+    /* Softer, wider inner glow */
+    animation: pulse 12s infinite alternate ease-in-out;
+    /* Slower, smoother animation */
+    opacity: 0.3;
+    /* Subtle opacity */
+    pointer-events: none;
+    z-index: 0;
+    /* Ensure it stays behind content */
+
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: scale(1.05);
+        opacity: 0.4;
+    }
+
+    /* Smaller scale change, subtle */
+}
+
+h1 {
+    color: var(--neon-green-400);
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    /* Larger title */
+    text-shadow: 0 0 15px rgba(var(--neon-green-400-rgb), 0.7);
+    /* Brighter, more diffused text shadow */
+    letter-spacing: 1px;
+    /* Slightly more spacing */
+}
+
+.form-group {
+    margin-bottom: 30px;
+
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    /* Slightly less margin */
+    color: #e0e0e0;
+    /* Brighter label color */
+    font-size: 1.05em;
+    /* Slightly smaller label font */
+    font-weight: 600;
+    /* Bolder label */
+}
+
+/* Calendar icon styling */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(150%) saturate(150%) hue-rotate(90deg);
+    /* Brighter green filter */
+    cursor: pointer;
+    opacity: 1;
+    transform: scale(1.3);
+    /* Slightly larger */
+}
+
+input[type="date"]::-moz-calendar-picker-indicator {
+    /* Firefox */
+    filter: invert(1) brightness(150%) saturate(150%) hue-rotate(90deg);
+    cursor: pointer;
+    opacity: 1;
+    transform: scale(1.3);
+}
+
+.meal-section {
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+    /* Animated Gradient Background */
+    background: linear-gradient(-45deg, #000000, #081c04, #0d0d0d, #031400);
+    background-size: 400% 400%;
+    animation: an-aurora 15s ease infinite;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 35px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 1);
+    border: 1px solid;
+    /* Invisible by default */
+}
+
+.meal-section:hover {
+    border: 1px solid var(--neon-green-600);
+    /* Neon border on hover */
+    box-shadow: 0 0 10px var(--neon-green-400);
+    /* Optional glowing effect */
+}
+
+
+.meal-section h2 {
+    color: #dae5de;
+    margin-top: 0;
+    margin-bottom: 25px;
+    /* More margin */
+    font-size: 1.8em;
+    /* Slightly larger heading */
+    border-bottom: 2px solid rgba(var(--neon-green-800-rgb), 0.7);
+    /* Brighter, more defined border */
+    padding-bottom: 12px;
+    text-align: center;
+    text-shadow: 0 0 10px;
+
+}
+
+.meal-item-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 20px;
+    /* Increased gap */
+    margin-bottom: 20px;
+    /* Increased margin */
+    align-items: center;
+    padding: 12px;
+    /* More padding */
+    background-color: #111827;
+    /* Even darker for individual items */
+    border-radius: 8px;
+    border: 1px solid rgba(var(--neon-green-600), 0.9);
+    /*Very subtle border*/
+}
+
+/* Specific styling for meal item inputs to override general input rules from custom.css */
+/* Inherits most from custom.css, only override width and padding slightly if needed */
+.meal-item-grid input[type="text"],
+.meal-item-grid input[type="number"] {
+    width: calc(100% - 22px);
+    /* Adjusted to match custom.css padding */
+    /* All other input styles are handled by custom.css now */
+}
+
+/* Styling for Quantity Input (visually like a stepper/slider, but still number input) */
+.meal-item-grid input[type="number"].item-quantity {
+    -moz-appearance: textfield;
+    /* Firefox */
+}
+
+.meal-item-grid input[type="number"].item-quantity::-webkit-outer-spin-button,
+.meal-item-grid input[type="number"].item-quantity::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Specific button adjustments for remove button */
+.remove-item-button {
+    background: transparent;
+    color: #ff6b6b;
+    /* Softer red for remove button */
+    box-shadow: none;
+    padding: 8px 12px;
+    font-size: 0.9em;
+    border: 1px solid #ff4444;
+    /* Defined red border */
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.remove-item-button:hover {
+    background-color: #b32e2e;
+    /* Darker red on hover */
+    transform: translateY(-2px);
+    /* More pronounced lift */
+    box-shadow: 0 2px 8px rgba(255, 68, 68, 0.4);
+    /* Red glow on hover */
+}
+
+.remove-item-button::before,
+.remove-item-button::after {
+    display: none !important;
+    /* Absolutely disable pseudo-elements for this button */
+}
+
+.button-group {
+    text-align: center;
+    margin-top: 50px;
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+    /* Animated Gradient Background */
+    background: linear-gradient(-45deg, #000000, #081c04, #0d0d0d, #031400);
+    background-size: 400% 400%;
+    animation: an-aurora 15s ease infinite;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 1);
+    border: 1px solid;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    align-items: center;
+    /* Invisible by default */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .meal-log-container {
+        padding: 30px 35px;
+    }
+
+    h1 {
+        font-size: 9em;
+        margin-bottom: 30px;
+    }
+
+    .meal-section h2 {
+        font-size: 1.6em;
+    }
+
+    .meal-item-grid {
+        grid-template-columns: 1fr;
+        /* Stack items vertically on small screens */
+        gap: 12px;
+    }
+
+    .button,
+    button {
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .meal-log-container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .meal-section h2 {
+        font-size: 1.4em;
+    }
+
+    .top-header {
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+
+    .remove-item-button {
+        padding: 6px 10px;
+    }
+}

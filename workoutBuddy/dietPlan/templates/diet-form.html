@@ -1,0 +1,146 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Diet-form{% endblock %}
+ 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'dietPlan/css/diet-form.css' %}">
+<link rel="stylesheet" href="{% static 'dietPlan/css/diet.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class=" diet-form-create-body flex items-center justify-center min-h-screen text-white font-poppins p-4">
+  <div class="w-full max-w-4xl">
+    <div class="card-container">
+      <div class="card-inner">
+        <!-- Card Front -->
+        <div class="card-front p-10 rounded-2xl shadow-lg border border-neon-600 bg-gradient-to-br from-gray-900 to-black mt-[-180px]">
+
+          <h2 class="text-3xl font-bold mb-4 text-center text-neon-green-600">Get Your Personalized Diet Plan</h2>
+          <p class="text-gray-300 text-center">Tap to begin the form</p>
+          <div class="text-center mt-6">
+            <button onclick="document.querySelector('.card-inner').classList.add('flipped')" class="diet-button px-6 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all duration-300">
+              Start
+            </button>
+          </div>
+        </div>
+
+        <!-- Card Back -->
+        <div class="card-back p-6 md:p-10 rounded-2xl shadow-lg border border-neon-700 bg-gradient-to-br from-gray-900 to-black mt-[-180px] w-full  mt-[-180px]">
+          <h2 class="text-2xl font-bold mb-4 text-neon-green-600 text-center">Diet Plan Form</h2>
+          <form id="dietForm" method="POST" class="space-y-6">
+            {% csrf_token %}
+
+            <!-- Step 1 -->
+            <div class="form-step active">
+              <div>
+                <label for="diet_type" class="block mb-2 font-medium">Diet Type</label>
+                <select name="diet_type" id="diet_type"  placeholder="select" class="w-full bg-gray-700 text-white p-3 rounded-lg border border-gray-600">
+                  <option value="" disabled selected hidden>Select your diet type</option>
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="non_vegetarian">Non-Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                </select>
+              </div>
+              <div class="mt-4">
+                <label for="fitness_goal" class="block mb-2 font-medium">Fitness Goal</label>
+               <select name="fitness_goal" id="diet_type"  placeholder="select" class="w-full bg-gray-700 text-white p-3 rounded-lg border border-gray-600">
+                  <option value="" disabled selected hidden>Select your Goal</option>
+                  <option value="vegetarian">Gain Weight</option>
+                  <option value="non_vegetarian">Lose Weight</option>
+                  <option value="vegan">Maintain Fitness</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="form-step hidden">
+              <div>
+                <label for="activity_level" class="block mb-2 font-medium">Activity Level</label>
+                <select name="activity_level" id="activity_level" required class="w-full bg-gray-700 text-white p-3 rounded-lg border border-gray-600">
+                  <option value="" disabled selected hidden>Select your Activity level</option>
+                  <option value="sedentary">Sedentary</option>
+                  <option value="moderately_active">Moderately Active</option>
+                  <option value="very_active">Very Active</option>
+                </select>
+              </div>
+              <div class="mt-4">
+                <label for="experience_level" class="block mb-2 font-medium">Experience Level</label>
+                <select name="experience_level" id="experience_level" required class="w-full bg-gray-700 text-white p-3 rounded-lg border border-gray-600">
+                  <option value="" disabled selected hidden>Select Experience level</option>
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="form-step hidden">
+              <div>
+                <label for="preferred_workout_style" class="block mb-2 font-medium">Preferred Workout Style</label>
+                <select name="preferred_workout_style" id="preferred_workout_style"  class="w-full bg-gray-700 text-white p-3 rounded-lg border border-gray-600">
+                  <option value="" disabled selected hidden>Select your Workout style</option>
+                  <option value="gym">Gym</option>
+                  <option value="home">Home</option>
+                  <option value="outside">Outside</option>
+                </select>
+              </div>
+              <div class="mt-4">
+                <label for="preferred_training_days_per_week" class="block mb-2 font-medium">Preferred Training Days per Week</label>
+                <select name="preferred_training_days_per_week" id="preferred_training_days_per_week"  class="w-full bg-gray-700 text-white p-3 rounded-lg border border-gray-600">
+                 {% for i in "1234567" %}
+                  <option value="{{ i }}">{{ i }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+            </div>
+
+            <!-- Step 4 -->
+            <div class="form-step hidden">
+              <div class="mb-4">
+                <label for="medical_conditions" class="block mb-2 font-medium">Medical Conditions</label>
+                <textarea name="medical_conditions" id="medical_conditions" rows="2"  class="w-full bg-gray-700 text-white p-3 rounded-lg border border-gray-600" placeholder="List any conditions..."></textarea>
+              </div>
+              
+              <div class="mb-4">
+                <span class="block mb-2 font-medium">Allergies</span>
+                {% for option in allergies_list%}
+                <label class="inline-flex items-center mr-4 mb-2">
+                  <input type="checkbox" name="allergies" value="{{ option }}"  class="form-checkbox text-green-500" onchange="toggleOtherAllergy(this)">
+                  <span class="ml-2">{{ option }}</span>
+                </label>
+                {% endfor %}
+                <div id="otherAllergyInput" class="mt-2 hidden">
+                  <input type="text" name="other_allergy" placeholder="Specify other allergy"  class="w-full bg-gray-700 text-white p-3 rounded-lg border border-gray-600">
+                </div>
+                {% comment %} <button type="submit" id="submitBtn" class="hidden px-4 py-2 bg-green-700 rounded-lg hover:bg-green-800 transition">Generate Plan</button> {% endcomment %}
+              </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-between mt-6">
+              <button type="button" id="prevBtn" class="diet-button px-4 py-2 bg-gray-600 rounded-lg hover:bg-gray-500 transition">Previous</button>
+              <button type="button" id="nextBtn" class="diet-button px-4 py-2 bg-green-500 rounded-lg hover:bg-green-600 transition">Next</button>
+              <button type="submit" id="submitBtn" class=" diet-button px-4 py-2 bg-green-700 rounded-lg hover:bg-green-800 transition">Generate Plan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Display Generated Diet Plan -->
+    {% if diet_plan %}
+    <div class="mt-10 bg-green-100 text-black p-6 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-bold mb-4">Your Personalized Diet Plan</h2>
+      <pre class="whitespace-pre-wrap">{{ diet_plan }}</pre>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- External JS -->
+<script src="{% static 'dietPlan/js/diet-form.js' %}"></script>
+{% endblock %}

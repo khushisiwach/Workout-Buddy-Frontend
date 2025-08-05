@@ -1,0 +1,259 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Create Your Fitness Plan{% endblock %}
+
+{% block extra_head %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'workout/css/create-workout.css' %}">
+
+<script src="{% static 'workout/js/create-workout.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="bg-black text-white flex items-center justify-center min-h-screen p-4">
+  <div class="w-full max-w-3xl bg-gray-900 rounded-2xl shadow-2xl p-8 space-y-8">
+    <div class="text-center">
+      <h1 class="text-3xl font-bold text-neon-500">
+        Create Your Fitness Plan
+      </h1>
+      <p class="text-gray-400 mt-2">
+        Personalize your journey to a healthier you.
+      </p>
+    </div>
+
+    <div class="w-full">
+      <div class="flex items-center justify-between mb-2">
+        <div id="progress-text" class="text-sm font-medium text-gray-300">
+          Step 1 of 5
+        </div>
+      </div>
+      <div class="w-full bg-gray-700 rounded-full h-2.5">
+        <div id="progress-bar" class="bg-neon-500 h-2.5 rounded-full transition-all duration-500" style="width: 20%">
+        </div>
+      </div>
+    </div>
+
+    <form id="fitnessPlanForm" method="POST" action="{% url 'create_workout_plan' %}" class="hidden-until-loaded">
+      {% csrf_token %}
+      <div id="step-1" class="form-step active">
+        <h2 class="text-2xl font-semibold mb-6 text-center">About You</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label for="age" class="block mb-2 text-sm font-medium text-gray-300">Age</label>
+            <input type="number" id="age" min="0" name="age"
+              class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg block w-full p-2.5 input-focus-neon"
+              placeholder="e.g., 25" required />
+            {% if form.age.errors %}
+            <p class="text-red-400 text-sm mt-1">{{ form.age.errors.0 }}</p>
+            {% endif %}
+          </div>
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-300">Gender</label>
+            <div class="grid grid-cols-3 gap-2 custom-radio">
+              <input type="radio" id="male" name="gender" value="male" checked />
+              <label for="male"
+                class="text-center border-2 border-gray-600 rounded-lg p-2.5 cursor-pointer hover:bg-gray-700">Male</label>
+
+              <input type="radio" id="female" name="gender" value="female" />
+              <label for="female"
+                class="text-center border-2 border-gray-600 rounded-lg p-2.5 cursor-pointer hover:bg-gray-700">Female</label>
+
+              <input type="radio" id="other" name="gender" value="other" />
+              <label for="other"
+                class="text-center border-2 border-gray-600 rounded-lg p-2.5 cursor-pointer hover:bg-gray-700">Other</label>
+              {% if form.gender.errors %}
+              <p class="text-red-400 text-sm mt-1">{{ form.gender.errors.0 }}</p>
+              {% endif %}
+            </div>
+          </div>
+          <div>
+            <label for="height_cm" class="block mb-2 text-sm font-medium text-gray-300">Height (cm)</label>
+            <input type="number" id="height_cm" min="0" name="height_cm"
+              class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg block w-full p-2.5 input-focus-neon"
+              placeholder="e.g., 180" required />
+            {% if form.height_cm.errors %}
+            <p class="text-red-400 text-sm mt-1">{{ form.height_cm.errors.0 }}</p>
+            {% endif %}
+          </div>
+          <div>
+            <label for="weight_kg" class="block mb-2 text-sm font-medium text-gray-300">Weight (kg)</label>
+            <input type="number" id="weight_kg" min="0" name="weight_kg"
+              class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg block w-full p-2.5 input-focus-neon"
+              placeholder="e.g., 75" required />
+            {% if form.weight_kg.errors %}
+            <p class="text-red-400 text-sm mt-1">{{form.weight_kg.errors.0 }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div id="step-2" class="form-step hidden">
+        <h2 class="text-2xl font-semibold mb-6 text-center">
+          Lifestyle &amp; Goals
+        </h2>
+        <div class="space-y-6">
+          <div>
+            <label class="block mb-3 text-sm font-medium text-gray-300">Your Daily Activity Level</label>
+            <div class="grid sm:grid-cols-2 gap-4 custom-radio">
+              <input type="radio" id="sedentary" name="activity_level" value="sedentary" checked />
+              <label for="sedentary"
+                class="border-2 border-gray-600 rounded-lg p-3 cursor-pointer hover:bg-gray-700"><strong>Sedentary</strong><span
+                  class="block text-xs text-gray-400">Little to no exercise</span></label>
+
+              <input type="radio" id="light" name="activity_level" value="light" />
+              <label for="light"
+                class="border-2 border-gray-600 rounded-lg p-3 cursor-pointer hover:bg-gray-700"><strong>Lightly
+                  Active</strong><span class="block text-xs text-gray-400">Light exercise/sports 1-3
+                  days/week</span></label>
+
+              <input type="radio" id="moderate" name="activity_level" value="moderate" />
+              <label for="moderate"
+                class="border-2 border-gray-600 rounded-lg p-3 cursor-pointer hover:bg-gray-700"><strong>Moderately
+                  Active</strong><span class="block text-xs text-gray-400">Moderate exercise 3-5
+                  days/week</span></label>
+
+              <input type="radio" id="active" name="activity_level" value="active" />
+              <label for="active"
+                class="border-2 border-gray-600 rounded-lg p-3 cursor-pointer hover:bg-gray-700"><strong>
+                  Active</strong><span class="block text-xs text-gray-400">Hard exercise 6-7 days a week</span></label>
+
+              <input type="radio" id="very_active" name="activity_level" value="very_active" />
+              <label for="very_active"
+                class="border-2 border-gray-600 rounded-lg p-3 cursor-pointer hover:bg-gray-700"><strong>Very
+                  Active</strong><span class="block text-xs text-gray-400">Hard exercise 6-7 days a week</span></label>
+            </div>
+            {% if form.activity_level.errors %}
+            <p class="text-red-400 text-sm mt-1">{{ form.activity_level.errors.0 }}</p>
+            {% endif %}
+          </div>
+          <div>
+            <label class="block mb-3 text-sm font-medium text-gray-300">Your Primary Goal</label>
+            <div class="grid sm:grid-cols-2 gap-4 custom-radio">
+              <input type="radio" id="lose_weight" name="goal" value="lose_weight" checked />
+              <label for="lose_weight"
+                class="border-2 border-gray-600 rounded-lg p-3 cursor-pointer hover:bg-gray-700"><strong>Lose
+                  Weight</strong><span class="block text-xs text-gray-400">Burn fat and get leaner</span></label>
+
+              <input type="radio" id="gain_muscle" name="goal" value="gain_muscle" />
+              <label for="gain_muscle"
+                class="border-2 border-gray-600 rounded-lg p-3 cursor-pointer hover:bg-gray-700"><strong>Gain
+                  Muscle</strong><span class="block text-xs text-gray-400">Build mass and strength</span></label>
+
+              <input type="radio" id="maintain_fitness" name="goal" value="maintain_fitness" />
+              <label for="maintain_fitness"
+                class="border-2 border-gray-600 rounded-lg p-3 cursor-pointer hover:bg-gray-700"><strong>Maintain
+                  Fitness</strong><span class="block text-xs text-gray-400">General health and endurance</span></label>
+            </div>
+            {% if form.goal.errors %}
+            <p class="text-red-400 text-sm mt-1">{{ form.goal.errors.0 }}</p>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>
+
+      <div id="step-3" class="form-step hidden">
+        <h2 class="text-2xl font-semibold mb-6 text-center">
+          Workout Preferences
+        </h2>
+        <div class="space-y-8">
+          <div>
+            <label for="workout_days_per_week" class="block mb-3 text-sm font-medium text-gray-300">How many days a week
+              can you work out?</label>
+            <div class="flex items-center space-x-4">
+              <input type="range" id="workout_days_per_week" name="workout_days_per_week" min="1" max="6" value="3"
+                class="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer" />
+              <span id="workout-days-output" class="text-neon-500 font-bold text-lg w-8 text-center">3</span>
+            </div>
+            {% if form.workout_days_per_week.errors %}
+            <p class="text-red-400 text-sm mt-1">{{ form.workout_days_per_week.errors.0 }}</p>
+            {% endif %}
+          </div>
+          <div>
+            <label class="block mb-3 text-sm font-medium text-gray-300">How long are your typical sessions?</label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 custom-radio">
+              <input type="radio" id="duration_30" name="workout_duration" value="30" checked />
+              <label for="duration_30"
+                class="text-center border-2 border-gray-600 rounded-lg p-4 cursor-pointer hover:bg-gray-700">30
+                min</label>
+
+              <input type="radio" id="duration_45" name="workout_duration" value="45" />
+              <label for="duration_45"
+                class="text-center border-2 border-gray-600 rounded-lg p-4 cursor-pointer hover:bg-gray-700">45
+                min</label>
+
+              <input type="radio" id="duration_60" name="workout_duration" value="60" />
+              <label for="duration_60"
+                class="text-center border-2 border-gray-600 rounded-lg p-4 cursor-pointer hover:bg-gray-700">60
+                min</label>
+
+              <input type="radio" id="duration_90" name="workout_duration" value="90+" />
+              <label for="duration_90"
+                class="text-center border-2 border-gray-600 rounded-lg p-4 cursor-pointer hover:bg-gray-700">90+
+                min</label>
+            </div>
+            {% if form.workout_duration.errors %}
+            <p class="text-red-400 text-sm mt-1">{{ form.workout_duration.errors.0 }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div id="step-4" class="form-step hidden">
+        <h2 class="text-2xl font-semibold mb-6 text-center">
+          Health Information
+        </h2>
+        <div class="space-y-6">
+          <div>
+            <label for="medical_conditions" class="block mb-2 text-sm font-medium text-gray-300">Any pre-existing
+              medical conditions? (Optional)</label>
+            <textarea id="medical_conditions" name="medical_conditions" rows="4"
+              class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg block w-full p-2.5 input-focus-neon"
+              placeholder="e.g., Asthma, High Blood Pressure. Write 'None' if not applicable."></textarea>
+            {% if form.medical_conditions.errors %}
+            <p class="text-red-400 text-sm mt-1">{{ form.medical_conditions.errors.0 }}</p>
+            {% endif %}
+
+          </div>
+          <div>
+            <label for="injuries_or_limitations" class="block mb-2 text-sm font-medium text-gray-300">Any injuries or
+              physical limitations? (Optional)</label>
+            <textarea id="injuries_or_limitations" name="injuries_or_limitations" rows="4"
+              class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg block w-full p-2.5 input-focus-neon"
+              placeholder="e.g., Bad knee, Shoulder pain. Write 'None' if not applicable."></textarea>
+          </div>
+          {% if form.injuries_or_limitations.errors %}
+          <p class="text-red-400 text-sm mt-1">{{ form.injuries_or_limitations.errors.0 }}</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div id="step-5" class="form-step hidden text-center">
+        <h2 class="text-2xl font-semibold mb-4">You're All Set!</h2>
+        <p class="text-gray-300 mb-6">
+          Click submit to generate your personalized fitness plan.
+        </p>
+        <svg class="w-24 h-24 text-neon-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+
+      <div class="flex justify-between mt-8">
+        <button id="prevBtn" type="button" class="button">
+          Previous
+        </button>
+        <button id="nextBtn" type="button" class="button">
+          Next
+        </button>
+        <button id="submitBtn" type="submit" class="button">
+          Generate Plan
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

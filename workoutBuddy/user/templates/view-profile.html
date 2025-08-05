@@ -1,0 +1,96 @@
+{% extends "index.html" %}
+{% load static %}
+
+
+{% block title %}My Profile | Workout Buddy{% endblock %}
+
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'user/css/scrollbar.css' %}">
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="max-w-6xl mx-auto py-10 px-4 grid grid-cols-1 md:grid-cols-3 gap-8 font-sans">
+
+  <div class="flex flex-col items-center bg-zinc-900 border border-[var(--neon-green-600)] rounded-3xl p-6 transition-transform transform hover:scale-105 duration-300">
+    <div class="flex items-center justify-center">
+      <i class="fa-solid fa-circle-user text-[7rem] leading-none inline-block rounded-full border-4 border-neon-green-500 mb-4 shadow-lg text-neon-green-500"></i>
+    </div>
+    <h3 class="text-2xl font-bold text-[var(--neon-green-600)]">{{ profile.full_name }}</h3>
+    <button id="open-edit-modal" class="mt-4 px-4 py-2 bg-[var(--neon-green-600)] text-black font-semibold rounded-md hover:bg-neon-700 transition">
+      Edit Profile
+    </button>
+  </div>
+
+  <div class="md:col-span-2 bg-zinc-900 border border-[var(--neon-green-600)] rounded-3xl p-8 transition-transform transform hover:scale-[1.01] duration-300">
+    <h2 class="text-3xl font-bold text-[var(--neon-green-600)] mb-6 border-b border-[var(--neon-green-600)] pb-3">👤 Profile Information</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+      <div>
+        <span class="text-gray-400 font-semibold">Full Name</span>
+        <p class="text-lg">{{ profile.full_name }}</p>
+      </div>
+      <div>
+        <span class="text-gray-400 font-semibold">Age</span>
+        <p class="text-lg">{{ profile.age }}</p>
+      </div>
+      <div>
+        <span class="text-gray-400 font-semibold">Gender</span>
+        <p class="text-lg">{{ profile.gender|capfirst }}</p>
+      </div>
+      <div>
+        <span class="text-gray-400 font-semibold">Height</span>
+        <p class="text-lg">{{ profile.height }} cm</p>
+      </div>
+      <div>
+        <span class="text-gray-400 font-semibold">Weight</span>
+        <p class="text-lg">{{ profile.weight }} kg</p>
+      </div>
+      <div>
+        <span class="text-gray-400 font-semibold">Activity Level</span>
+        <p class="text-lg">{{ profile.activity_level|capfirst }}</p>
+      </div>
+      <div>
+        <span class="text-gray-400 font-semibold">Created At</span>
+        <p class="text-lg">{{ profile.created_at|date:"Y-m-d" }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="edit-profile-modal"
+  class="hidden fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center p-4 sm:p-6">
+
+  <!-- Scrollable container -->
+  <div class="bg-zinc-900 border border-[var(--neon-green-600)] rounded-xl w-full max-w-2xl relative text-white shadow-xl max-h-[90vh] overflow-y-auto custom-scrollbar">
+
+    <!-- Close Button -->
+    <button id="close-edit-modal"
+      class="absolute top-2 right-4 text-white hover:text-neon-600 text-3xl font-bold focus:outline-none"
+      aria-label="Close Modal">&times;</button>
+
+    {% include "edit-profile.html" %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const openBtn = document.getElementById("open-edit-modal");
+    const closeBtn = document.getElementById("close-edit-modal");
+    const modal = document.getElementById("edit-profile-modal");
+    const modalContent = modal.querySelector(".custom-scrollbar"); // Target the inner div
+
+    openBtn.addEventListener("click", () => modal.classList.remove("hidden"));
+    closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
+
+    // Close modal if background is clicked
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.classList.add("hidden");
+      }
+    });
+  });
+</script>
+{% endblock %}

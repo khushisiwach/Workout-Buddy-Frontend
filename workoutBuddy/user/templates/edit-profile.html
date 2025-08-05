@@ -1,0 +1,193 @@
+{% load static %}
+{% block content %}
+<div class="grid md:grid-cols-3 rounded-2xl">
+    <div class="hidden md:flex bg-gradient-to-br text-white flex-col items-center justify-center p-4"
+        style="background-image: linear-gradient(to bottom right, #308423, #07481d, #083b12);">
+        <div class="flex items-center justify-center">
+            <i
+                class="fa-solid fa-circle-user text-[7rem] leading-none inline-block rounded-full border-4 border-[var(--neon-green-500)] mb-4 shadow-lg text-neon-green-500 bg-black"></i>
+        </div>
+        <h3 class="text-2xl font-semibold text-center text-white break-words px-2">
+            {{ profile.full_name|default:"Your Name" }}
+        </h3>
+        {% if profile.created_at %}
+        <p class="text-sm text-white mt-2">Joined on: {{ profile.created_at|date:"F j, Y" }}</p>
+        {% endif %}
+    </div>
+
+    <div class="md:col-span-2 p-6 bg-black text-white overflow-y-auto">
+        <h2 class="text-2xl font-bold text-center text-neon-700 mb-6">Edit Your Profile</h2>
+
+        <form id="edit-profile-form" method="post" action="{% url 'edit_profile' %}" class="space-y-6">
+            {% csrf_token %}
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="full_name" class="block text-sm font-medium text-neon-500">Full Name</label>
+                    <input type="text" name="full_name" id="full_name" value="{{ form.full_name.value }}"
+                        class="mt-1 w-full px-4 py-2 bg-gray-900 text-neon-100 border {% if form.full_name.errors %}border-red-500{% else %}border-neon-700{% endif %} rounded-md sm:text-sm">
+                    {% if form.full_name.errors %}
+                    <p class="mt-1 text-sm text-red-500">{{ form.full_name.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label for="age" class="block text-sm font-medium text-neon-500">Age</label>
+                    <input type="number" name="age" id="age" value="{{ form.age.value }}"
+                        class="mt-1 w-full px-4 py-2 bg-gray-900 text-neon-100 border {% if form.age.errors %}border-red-500{% else %}border-neon-700{% endif %} rounded-md sm:text-sm">
+                    {% if form.age.errors %}
+                    <p class="mt-1 text-sm text-red-500">{{ form.age.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label for="gender" class="block text-sm font-medium text-neon-500">Gender</label>
+                    <select name="gender" id="gender"
+                        class="mt-1 w-full px-4 py-2 bg-gray-900 text-neon-100 border {% if form.gender.errors %}border-red-500{% else %}border-neon-700{% endif %} rounded-md sm:text-sm">
+                        {% for value, name in form.gender.field.choices %}
+                        <option value="{{ value }}" {% if form.gender.value == value %}selected{% endif %}>{{ name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    {% if form.gender.errors %}
+                    <p class="mt-1 text-sm text-red-500">{{ form.gender.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label for="height" class="block text-sm font-medium text-neon-500">Height (cm)</label>
+                    <input type="number" step="0.1" name="height" id="height" value="{{ form.height.value }}"
+                        class="mt-1 w-full px-4 py-2 bg-gray-900 text-neon-100 border {% if form.height.errors %}border-red-500{% else %}border-neon-700{% endif %} rounded-md sm:text-sm">
+                    {% if form.height.errors %}
+                    <p class="mt-1 text-sm text-red-500">{{ form.height.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label for="weight" class="block text-sm font-medium text-neon-500">Weight (kg)</label>
+                    <input type="number" step="0.1" name="weight" id="weight" value="{{ form.weight.value }}"
+                        class="mt-1 w-full px-4 py-2 bg-gray-900 text-neon-100 border {% if form.weight.errors %}border-red-500{% else %}border-neon-700{% endif %} rounded-md sm:text-sm">
+                    {% if form.weight.errors %}
+                    <p class="mt-1 text-sm text-red-500">{{ form.weight.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label for="activity_level" class="block text-sm font-medium text-neon-500">Activity Level</label>
+                    <select name="activity_level" id="activity_level"
+                        class="mt-1 w-full px-4 py-2 bg-gray-900 text-neon-100 border {% if form.activity_level.errors %}border-red-500{% else %}border-neon-700{% endif %} rounded-md sm:text-sm">
+                        {% for value, name in form.activity_level.field.choices %}
+                        <option value="{{ value }}" {% if form.activity_level.value == value %}selected{% endif %}>
+                            {{ name }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if form.activity_level.errors %}
+                    <p class="mt-1 text-sm text-red-500">{{ form.activity_level.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div>
+                <label for="goal" class="block text-sm font-medium text-neon-500">Primary Goal</label>
+                <select name="goal" id="goal"
+                    class="mt-1 w-full px-4 py-2 bg-gray-900 text-neon-100 border {% if form.goal.errors %}border-red-500{% else %}border-neon-700{% endif %} rounded-md sm:text-sm">
+                    {% for value, name in form.goal.field.choices %}
+                    <option value="{{ value }}" {% if form.goal.value == value %}selected{% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
+                {% if form.goal.errors %}
+                <p class="mt-1 text-sm text-red-500">{{ form.goal.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+
+            <div class="flex justify-end pt-4">
+                <a href="{% url 'profile' %}"
+                    class="inline-flex items-center px-6 py-2 border border-neon-500 text-neon-300 bg-gray-800 hover:bg-gray-700 rounded-md text-sm shadow transition-all duration-300">
+                    Cancel
+                </a>
+                <button type="submit" id="save-button"
+                    class="ml-3 inline-flex items-center justify-center px-6 py-2 bg-[var(--neon-green-600)] text-black hover:bg-neon-700 text-white font-medium rounded-md shadow-md hover:shadow-neon-500/50 focus:outline-none focus:ring-2 focus:ring-neon-500 transition-all duration-300">
+                    <span id="save-button-text">Save Changes</span>
+                    <svg id="save-loading" class="hidden ml-2 w-5 h-5 animate-spin text-white"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8h4l-3 3 3 3H4a8 8 0 01-8-8z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ✅ JavaScript to display field errors -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("edit-profile-form");
+    const saveButton = document.getElementById("save-button");
+    const saveButtonText = document.getElementById("save-button-text");
+    const saveLoading = document.getElementById("save-loading");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      const formData = new FormData(form);
+      const jsonData = {};
+
+      formData.forEach((value, key) => {
+        jsonData[key] = value;
+      });
+
+      saveButton.disabled = true;
+      saveButtonText.textContent = "Saving...";
+      saveLoading.classList.remove("hidden");
+
+      fetch("{% url 'edit_profile' %}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken
+        },
+        body: JSON.stringify(jsonData)
+      })
+        .then(response => response.json())
+        .then(data => {
+          saveButton.disabled = false;
+          saveButtonText.textContent = "Save Changes";
+          saveLoading.classList.add("hidden");
+
+          if (data.success) {
+            window.location.href = "{% url 'profile' %}";
+          } else if (data.errors) {
+            // Clear old errors
+            document.querySelectorAll(".text-red-500").forEach(el => el.innerText = "");
+
+            for (const fieldName in data.errors) {
+              const field = document.querySelector(`[name="${fieldName}"]`);
+              const errors = data.errors[fieldName];
+              if (field) {
+                const errorP = field.parentElement.querySelector(".text-red-500");
+                if (errorP) {
+                  errorP.innerText = errors[0].message || errors[0];
+                } else {
+                  const p = document.createElement("p");
+                  p.className = "mt-1 text-sm text-red-500";
+                  p.innerText = errors[0].message || errors[0];
+                  field.parentElement.appendChild(p);
+                }
+              }
+            }
+          }
+        })
+        .catch(error => {
+          saveButton.disabled = false;
+          saveButtonText.textContent = "Save Changes";
+          saveLoading.classList.add("hidden");
+          console.error("Error:", error);
+        });
+    });
+  });
+</script>
+{% endblock %}
